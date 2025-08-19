@@ -152,9 +152,6 @@ const WaterSupplyReminder = () => {
           <div
             key={day}
             className={`p-3 text-center rounded-lg transition-colors ${
-              isToday 
-
-           // नया करें:
              isToday 
              ? `${isDarkMode ? 'bg-green-600 text-white border-2 border-green-400' : 'bg-green-500 text-white border-2 border-green-300'}` 
              : isSupplyDay 
