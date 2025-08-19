@@ -142,7 +142,10 @@ const WaterSupplyReminder = () => {
       
       // Days of the month
       for (let day = 1; day <= daysInMonth; day++) {
-        const isToday = day === today.getDate();
+     // नया code करें:
+     const isToday = day === today.getDate() && 
+                currentMonth === today.getMonth() && 
+                currentYear === today.getFullYear();
         const isSupplyDay = supplyDates.includes(day);
         
         days.push(
@@ -150,10 +153,13 @@ const WaterSupplyReminder = () => {
             key={day}
             className={`p-3 text-center rounded-lg transition-colors ${
               isToday 
-                ? `${isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white'}` 
-                : isSupplyDay 
-                ? `${isDarkMode ? 'bg-blue-800 text-blue-200' : 'bg-blue-100 text-blue-700'}` 
-                : `${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`
+
+           // नया करें:
+             isToday 
+             ? `${isDarkMode ? 'bg-green-600 text-white border-2 border-green-400' : 'bg-green-500 text-white border-2 border-green-300'}` 
+             : isSupplyDay 
+             ? `${isDarkMode ? 'bg-blue-800 text-blue-200' : 'bg-blue-100 text-blue-700'}` 
+             : `${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`
             }`}
           >
             <span className="text-sm font-medium">{day}</span>
