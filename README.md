@@ -5,7 +5,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-3.3.3-06B6D4)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-> Smart water supply reminder for Udaipur households. Never miss your alternate-day water supply schedule.
+> Smart water supply reminder for every households. Never miss your alternate-day water supply schedule.
 
 ## 🏠 About
 
