@@ -77,9 +77,33 @@ const WaterSupplyReminder = () => {
     return dates;
   };
 
-  const getNextSupplyDate = () => {
-    const nextDates = getNextSupplyDates(lastSupplyDate, 1);
-    return nextDates.length > 0 ? nextDates[0] : null;
+// Calculate next supply dates starting from today onwards
+  const getNextSupplyDates = (lastDate, count = 7) => {
+    if (!lastDate) return [];
+    
+    const dates = [];
+    const last = new Date(lastDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Find all future supply dates starting from the next one after today
+    let dayIncrement = 2;
+    let foundDates = 0;
+    
+    while (foundDates < count) {
+      const nextDate = new Date(last);
+      nextDate.setDate(last.getDate() + dayIncrement);
+      
+      // Only add dates that are in the future
+      if (nextDate > today) {
+        dates.push(nextDate);
+        foundDates++;
+      }
+      
+      dayIncrement += 2;
+    }
+    
+    return dates;
   };
 
   const formatDate = (date) => {
