@@ -61,21 +61,6 @@ const WaterSupplyReminder = () => {
     return dates;
   };
 
-  // Calculate next supply dates
-  const getNextSupplyDates = (lastDate, count = 7) => {
-    if (!lastDate) return [];
-    
-    const dates = [];
-    const last = new Date(lastDate);
-    
-    for (let i = 1; i <= count; i++) {
-      const nextDate = new Date(last);
-      nextDate.setDate(last.getDate() + (i * 2)); // Every alternate day
-      dates.push(nextDate);
-    }
-    
-    return dates;
-  };
 
 // Calculate next supply dates starting from today onwards
   const getNextSupplyDates = (lastDate, count = 7) => {
@@ -140,6 +125,27 @@ const WaterSupplyReminder = () => {
   const daysUntil = nextSupplyDate ? getDaysUntilNext(nextSupplyDate) : 0;
   const upcomingDates = getNextSupplyDates(lastSupplyDate, 7);
 
+  const getNextSupplyDate = () => {
+    if (!lastSupplyDate) return null;
+    
+    const lastDate = new Date(lastSupplyDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Calculate all possible supply dates starting from last supply date
+    let nextDate = new Date(lastDate);
+    let dayIncrement = 2; // Start with next supply (2 days after last)
+    
+    // Keep adding 2 days until we find a date that's in the future
+    do {
+      nextDate = new Date(lastDate);
+      nextDate.setDate(lastDate.getDate() + dayIncrement);
+      dayIncrement += 2;
+    } while (nextDate <= today);
+    
+    return nextDate;
+  };
+  
   // Calendar component
   const CalendarView = () => {
     const today = new Date();
