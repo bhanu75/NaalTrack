@@ -107,25 +107,7 @@ const WaterSupplyReminder = () => {
     });
   };
 
-  const getDaysUntilNext = (nextDate) => {
-    if (!nextDate) return 0;
-    const today = new Date();
-    const diffTime = nextDate - today;
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  };
-
-  const requestNotificationPermission = async () => {
-    if ('Notification' in window) {
-      const permission = await Notification.requestPermission();
-      setNotificationsEnabled(permission === 'granted');
-    }
-  };
-
-  const nextSupplyDate = getNextSupplyDate();
-  const daysUntil = nextSupplyDate ? getDaysUntilNext(nextSupplyDate) : 0;
-  const upcomingDates = getNextSupplyDates(lastSupplyDate, 7);
-
-  const getNextSupplyDate = () => {
+const getNextSupplyDate = () => {
     if (!lastSupplyDate) return null;
     
     const lastDate = new Date(lastSupplyDate);
@@ -145,6 +127,28 @@ const WaterSupplyReminder = () => {
     
     return nextDate;
   };
+
+  const getDaysUntilNext = (nextDate) => {
+    if (!nextDate) return 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const next = new Date(nextDate);
+    next.setHours(0, 0, 0, 0);
+    const diffTime = next - today;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+  
+  const requestNotificationPermission = async () => {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationsEnabled(permission === 'granted');
+    }
+  };
+
+  const nextSupplyDate = getNextSupplyDate();
+  const daysUntil = nextSupplyDate ? getDaysUntilNext(nextSupplyDate) : 0;
+  const upcomingDates = getNextSupplyDates(lastSupplyDate, 7);
+
   
   // Calendar component
   const CalendarView = () => {
